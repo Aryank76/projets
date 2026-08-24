@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Wanderly | Travel Planner</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'DM Sans',sans-serif;
+    background:#f5f9fa;
+    color:#20343b;
+}
+
+/* ================= NAVBAR ================= */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 7%;
+
+    background:rgba(255,255,255,.88);
+    backdrop-filter:blur(15px);
+
+    box-shadow:0 5px 25px #16404a18;
+}
+
+.logo{
+    font-family:'Playfair Display',serif;
+    font-size:29px;
+    font-weight:bold;
+    color:#168aad;
+}
+
+.logo span{
+    color:#f4a261;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.nav-links a{
+    color:#264952;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#168aad;
+}
+
+.theme-btn{
+    border:0;
+    background:#e7f6f8;
+    padding:10px 14px;
+    border-radius:20px;
+    cursor:pointer;
+    font-size:18px;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    padding:130px 20px 80px;
+
+    color:white;
+
+    background:
+    linear-gradient(
+        rgba(4,38,49,.48),
+        rgba(4,38,49,.70)
+    ),
+
+    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1800")
+    center/cover fixed;
+}
+
+.hero-content{
+    max-width:850px;
+
+    animation:fadeUp 1s ease;
+}
+
+.hero-badge{
+    display:inline-block;
+
+    padding:9px 20px;
+
+    border:1px solid #fff;
+
+    border-radius:30px;
+
+    margin-bottom:22px;
+
+    font-size:14px;
+}
+
+.hero h1{
+    font-family:'Playfair Display',serif;
+
+    font-size:clamp(55px,8vw,90px);
+
+    line-height:1.05;
+}
+
+.hero h1 span{
+    color:#f4b183;
+}
+
+.hero p{
+    max-width:650px;
+
+    margin:25px auto;
+
+    font-size:20px;
+
+    line-height:1.7;
+
+    color:#edf7f8;
+}
+
+.hero-buttons{
+    margin-top:25px;
+}
+
+.btn{
+    display:inline-block;
+
+    border:0;
+
+    padding:14px 28px;
+
+    margin:5px;
+
+    border-radius:30px;
+
+    background:#168aad;
+
+    color:white;
+
+    font-weight:bold;
+
+    text-decoration:none;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 25px #0004;
+
+    background:#0f718d;
+}
+
+.btn-orange{
+    background:#f4a261;
+}
+
+.btn-orange:hover{
+    background:#e88942;
+}
+
+/* ================= SECTIONS ================= */
+
+section{
+    padding:90px 8%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title small{
+    color:#f08a45;
+
+    text-transform:uppercase;
+
+    letter-spacing:3px;
+
+    font-weight:bold;
+}
+
+.section-title h2{
+    font-family:'Playfair Display',serif;
+
+    color:#123d48;
+
+    font-size:46px;
+
+    margin-top:8px;
+}
+
+.section-title p{
+    color:#6c7f84;
+
+    margin-top:12px;
+}
+
+/* ================= SEARCH ================= */
+
+.search-box{
+    max-width:500px;
+
+    margin:0 auto 45px;
+
+    position:relative;
+}
+
+.search-box input{
+    width:100%;
+
+    padding:16px 22px;
+
+    border:2px solid #dcebed;
+
+    border-radius:30px;
+
+    outline:none;
+
+    font-size:16px;
+
+    box-shadow:0 8px 25px #17434d12;
+}
+
+.search-box input:focus{
+    border-color:#168aad;
+}
+
+/* ================= DESTINATIONS ================= */
+
+#places{
+    background:#f5f9fa;
+}
+
+.cards{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(280px,1fr));
+
+    gap:28px;
+}
+
+.card{
+
+    background:white;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    box-shadow:0 8px 30px #17434d18;
+
+    transition:.4s;
+
+    position:relative;
+}
+
+.card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 20px 45px #17434d28;
+}
+
+.card-img{
+
+    height:230px;
+
+    overflow:hidden;
+
+    position:relative;
+}
+
+.card-img img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.5s;
+}
+
+.card:hover .card-img img{
+    transform:scale(1.08);
+}
+
+.location-badge{
+
+    position:absolute;
+
+    top:15px;
+    left:15px;
+
+    background:#ffffffdd;
+
+    backdrop-filter:blur(8px);
+
+    padding:7px 13px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    color:#168aad;
+}
+
+.card-content{
+    padding:23px;
+}
+
+.card-content h3{
+
+    font-family:'Playfair Display',serif;
+
+    font-size:26px;
+
+    color:#163f49;
+}
+
+.card-content p{
+
+    color:#708187;
+
+    line-height:1.7;
+
+    margin:8px 0 15px;
+}
+
+.card-footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+}
+
+.rating{
+    color:#f4a261;
+}
+
+.save-btn{
+
+    border:0;
+
+    background:#e7f6f8;
+
+    color:#168aad;
+
+    padding:10px 16px;
+
+    border-radius:20px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+.save-btn:hover{
+
+    background:#168aad;
+
+    color:white;
+}
+
+/* ================= PLANNER ================= */
+
+#trip{
+    background:#e9f7f8;
+}
+
+.box{
+
+    max-width:650px;
+
+    margin:auto;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:22px;
+
+    box-shadow:0 10px 35px #17434d18;
+}
+
+.form-row{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:20px;
+}
+
+.form-row input{
+
+    flex:1;
+
+    padding:13px;
+
+    border:2px solid #dcebed;
+
+    border-radius:10px;
+
+    outline:none;
+}
+
+.add-btn{
+
+    border:0;
+
+    background:#168aad;
+
+    color:white;
+
+    padding:13px 20px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+}
+
+ul{
+    list-style:none;
+}
+
+li{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin:10px 0;
+
+    padding:13px 16px;
+
+    background:#edf8fa;
+
+    border-radius:10px;
+
+    color:#36535b;
+}
+
+.delete-btn{
+
+    border:0;
+
+    background:#ffebe5;
+
+    color:#d85c35;
+
+    padding:5px 10px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+}
+
+/* ================= BUDGET ================= */
+
+#budget{
+    background:#123d48;
+
+    color:white;
+}
+
+#budget .section-title h2{
+    color:white;
+}
+
+#budget .section-title p{
+    color:#c8dce0;
+}
+
+.budget-box{
+
+    max-width:650px;
+
+    margin:auto;
+
+    background:#ffffff10;
+
+    border:1px solid #ffffff20;
+
+    backdrop-filter:blur(10px);
+
+    padding:35px;
+
+    border-radius:22px;
+
+    text-align:center;
+}
+
+.money-input{
+
+    width:100%;
+
+    padding:15px;
+
+    border:0;
+
+    border-radius:10px;
+
+    outline:none;
+
+    font-size:17px;
+
+    margin-bottom:15px;
+}
+
+.total{
+
+    margin-top:25px;
+
+    font-size:28px;
+
+    color:#f4b183;
+}
+
+/* ================= PACKING ================= */
+
+#pack{
+    background:#f5f9fa;
+}
+
+.pack-box{
+
+    max-width:650px;
+
+    margin:auto;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:22px;
+
+    box-shadow:0 10px 35px #17434d18;
+}
+
+.check-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin:10px 0;
+
+    padding:13px;
+
+    background:#edf8fa;
+
+    border-radius:10px;
+}
+
+.check-item input{
+    width:18px;
+    height:18px;
+}
+
+.check-item.done span{
+    text-decoration:line-through;
+    color:#8ca0a5;
+}
+
+/* ================= TRAVEL TIPS ================= */
+
+.tips{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+    max-width:1100px;
+
+    margin:auto;
+}
+
+.tip{
+
+    background:white;
+
+    padding:30px;
+
+    text-align:center;
+
+    border-radius:20px;
+
+    box-shadow:0 8px 25px #17434d14;
+
+    transition:.3s;
+}
+
+.tip:hover{
+    transform:translateY(-6px);
+}
+
+.tip-icon{
+    font-size:40px;
+
+    margin-bottom:15px;
+}
+
+.tip h3{
+    margin-bottom:10px;
+}
+
+.tip p{
+    color:#708187;
+
+    line-height:1.6;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+
+    background:#082c36;
+
+    color:#aac0c5;
+
+    text-align:center;
+
+    padding:40px 20px;
+}
+
+.footer-logo{
+
+    font-family:'Playfair Display',serif;
+
+    color:#f4b183;
+
+    font-size:30px;
+
+    margin-bottom:10px;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:25px;
+
+    background:#123d48;
+
+    color:white;
+
+    padding:15px 22px;
+
+    border-radius:12px;
+
+    box-shadow:0 10px 30px #0004;
+
+    transform:translateY(100px);
+
+    opacity:0;
+
+    transition:.4s;
+
+    z-index:2000;
+}
+
+.toast.show{
+
+    transform:translateY(0);
+
+    opacity:1;
+}
+
+/* ================= DARK MODE ================= */
+
+body.dark{
+
+    background:#101b1f;
+
+    color:#e9f3f5;
+}
+
+body.dark nav{
+
+    background:#17282d;
+}
+
+body.dark nav a{
+    color:#e8f2f4;
+}
+
+body.dark #places,
+body.dark #pack{
+    background:#101b1f;
+}
+
+body.dark .section-title h2{
+    color:#e9f3f5;
+}
+
+body.dark .card,
+body.dark .box,
+body.dark .pack-box,
+body.dark .tip{
+    background:#1b2b30;
+    color:white;
+}
+
+body.dark .card-content h3,
+body.dark .card-content p,
+body.dark .tip p{
+    color:#d5e2e5;
+}
+
+body.dark .search-box input,
+body.dark .form-row input,
+body.dark .money-input{
+    background:#1b2b30;
+    color:white;
+    border-color:#34545d;
+}
+
+body.dark li,
+body.dark .check-item{
+    background:#243b41;
+    color:#e1edef;
+}
+
+/* ================= ANIMATION ================= */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:768px){
+
+    nav{
+        padding:15px 5%;
+    }
+
+    .nav-links a{
+        display:none;
+    }
+
+    .hero{
+        background-attachment:scroll;
+    }
+
+    section{
+        padding:70px 5%;
+    }
+
+    .section-title h2{
+        font-size:38px;
+    }
+
+    .hero h1{
+        font-size:55px;
+    }
+
+    .form-row{
+        flex-direction:column;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav>
+
+    <div class="logo">
+        Wander<span>ly</span> ✈️
+    </div>
+
+    <div class="nav-links">
+
+        <a href="#home">Home</a>
+
+        <a href="#places">Places</a>
+
+        <a href="#trip">My Trip</a>
+
+        <a href="#budget">Budget</a>
+
+        <a href="#pack">Packing</a>
+
+        <button
+            class="theme-btn"
+            onclick="toggleDark()">
+            🌙
+        </button>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="hero-badge">
+            ✈️ YOUR NEXT ADVENTURE STARTS HERE
+        </div>
+
+        <h1>
+            Explore The
+            <br>
+            <span>World</span>
+        </h1>
+
+        <p>
+            Discover beautiful destinations, organize
+            your perfect trip, manage your budget and
+            pack smarter — all in one place.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#places" class="btn">
+                Explore Places
+            </a>
+
+            <a href="#trip" class="btn btn-orange">
+                Plan My Trip
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PLACES ================= -->
+
+<section id="places">
+
+    <div class="section-title">
+
+        <small>
+            Discover
+        </small>
+
+        <h2>
+            Popular Destinations
+        </h2>
+
+        <p>
+            Find inspiration for your next unforgettable journey.
+        </p>
+
+    </div>
+
+
+    <div class="search-box">
+
+        <input
+            id="search"
+            placeholder="🔍 Search destinations..."
+            onkeyup="searchPlaces()"
+        >
+
+    </div>
+
+
+    <div class="cards">
+
+
+        <!-- PARIS -->
+
+        <div class="card">
+
+            <div class="card-img">
+
+                <img
+                    src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=900"
+                    alt="Paris"
+                >
+
+                <div class="location-badge">
+                    🇫🇷 France
+                </div>
+
+            </div>
+
+            <div class="card-content">
+
+                <h3>
+                    Paris
+                </h3>
+
+                <p>
+                    Discover romantic streets, beautiful
+                    architecture, amazing food and the
+                    iconic Eiffel Tower.
+                </p>
+
+                <div class="card-footer">
+
+                    <span class="rating">
+                        ★★★★★
+                    </span>
+
+                    <button
+                        class="save-btn"
+                        onclick="savePlace('Paris')">
+                        ♡ Save
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- BALI -->
+
+        <div class="card">
+
+            <div class="card-img">
+
+                <img
+                    src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=900"
+                    alt="Bali"
+                >
+
+                <div class="location-badge">
+                    🇮🇩 Indonesia
+                </div>
+
+            </div>
+
+            <div class="card-content">
+
+                <h3>
+                    Bali
+                </h3>
+
+                <p>
+                    Relax on tropical beaches, explore
+                    rice terraces and experience beautiful
+                    island culture.
+                </p>
+
+                <div class="card-footer">
+
+                    <span class="rating">
+                        ★★★★★
+                    </span>
+
+                    <button
+                        class="save-btn"
+                        onclick="savePlace('Bali')">
+                        ♡ Save
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOKYO -->
+
+        <div class="card">
+
+            <div class="card-img">
+
+                <img
+                    src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=900"
+                    alt="Tokyo"
+                >
+
+                <div class="location-badge">
+                    🇯🇵 Japan
+                </div>
+
+            </div>
+
+            <div class="card-content">
+
+                <h3>
+                    Tokyo
+                </h3>
+
+                <p>
+                    Experience futuristic streets, incredible
+                    food, ancient temples and vibrant nightlife.
+                </p>
+
+                <div class="card-footer">
+
+                    <span class="rating">
+                        ★★★★★
+                    </span>
+
+                    <button
+                        class="save-btn"
+                        onclick="savePlace('Tokyo')">
+                        ♡ Save
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SWITZERLAND -->
+
+        <div class="card">
+
+            <div class="card-img">
+
+                <img
+                    src="https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=900"
+                    alt="Switzerland"
+                >
+
+                <div class="location-badge">
+                    🇨🇭 Switzerland
+                </div>
+
+            </div>
+
+            <div class="card-content">
+
+                <h3>
+                    Switzerland
+                </h3>
+
+                <p>
+                    Explore snowy mountains, peaceful lakes
+                    and some of Europe's most beautiful scenery.
+                </p>
+
+                <div class="card-footer">
+
+                    <span class="rating">
+                        ★★★★★
+                    </span>
+
+                    <button
+                        class="save-btn"
+                        onclick="savePlace('Switzerland')">
+                        ♡ Save
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SANTORINI -->
+
+        <div class="card">
+
+            <div class="card-img">
+
+                <img
+                    src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=900"
+                    alt="Santorini"
+                >
+
+                <div class="location-badge">
+                    🇬🇷 Greece
+                </div>
+
+            </div>
+
+            <div class="card-content">
+
+                <h3>
+                    Santorini
+                </h3>
+
+                <p>
+                    Enjoy white villages, blue domes,
+                    stunning sunsets and beautiful sea views.
+                </p>
+
+                <div class="card-footer">
+
+                    <span class="rating">
+                        ★★★★★
+                    </span>
+
+                    <button
+                        class="save-btn"
+                        onclick="savePlace('Santorini')">
+                        ♡ Save
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DUBAI -->
+
+        <div class="card">
+
+            <div class="card-img">
+
+                <img
+                    src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=900"
+                    alt="Dubai"
+                >
+
+                <div class="location-badge">
+                    🇦🇪 UAE
+                </div>
+
+            </div>
+
+            <div class="card-content">
+
+                <h3>
+                    Dubai
+                </h3>
+
+                <p>
+                    Discover futuristic architecture,
+                    luxury shopping, deserts and incredible
+                    city views.
+                </p>
+
+                <div class="card-footer">
+
+                    <span class="rating">
+                        ★★★★★
+                    </span>
+
+                    <button
+                        class="save-btn"
+                        onclick="savePlace('Dubai')">
+                        ♡ Save
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ================= TRIP PLANNER ================= -->
+
+<section id="trip">
+
+    <div class="section-title">
+
+        <small>
+            Plan Ahead
+        </small>
+
+        <h2>
+            My Trip Planner
+        </h2>
+
+        <p>
+            Add activities and create your perfect itinerary.
+        </p>
+
+    </div>
+
+
+    <div class="box">
+
+        <div class="form-row">
+
+            <input
+                id="activity"
+                placeholder="Example: Visit Eiffel Tower"
+            >
+
+            <button
+                class="add-btn"
+                onclick="addTrip()">
+                + Add
+            </button>
+
+        </div>
+
+
+        <ul id="tripList">
+
+            <li>
+                <span>✈️ Flight</span>
+
+                <button
+                    class="delete-btn"
+                    onclick="this.parentElement.remove()">
+                    ×
+                </button>
+            </li>
+
+            <li>
+                <span>🏨 Hotel Check-in</span>
+
+                <button
+                    class="delete-btn"
+                    onclick="this.parentElement.remove()">
+                    ×
+                </button>
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+<!-- ================= BUDGET ================= -->
+
+<section id="budget">
+
+    <div class="section-title">
+
+        <small>
+            Travel Smart
+        </small>
+
+        <h2>
+            Trip Budget
+        </h2>
+
+        <p>
+            Keep track of how much you want to spend.
+        </p>
+
+    </div>
+
+
+    <div class="budget-box">
+
+        <input
+            id="money"
+            class="money-input"
+            type="number"
+            placeholder="Enter your budget in ₹"
+        >
+
+        <button
+            class="btn"
+            onclick="showBudget()">
+            Calculate Budget
+        </button>
+
+        <div class="total">
+
+            Total Budget:
+            ₹<span id="total">0</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PACKING ================= -->
+
+<section id="pack">
+
+    <div class="section-title">
+
+        <small>
+            Be Prepared
+        </small>
+
+        <h2>
+            Packing Checklist
+        </h2>
+
+        <p>
+            Don't forget the essentials for your adventure.
+        </p>
+
+    </div>
+
+
+    <div class="pack-box">
+
+        <div class="form-row">
+
+            <input
+                id="item"
+                placeholder="Example: Sunglasses"
+            >
+
+            <button
+                class="add-btn"
+                onclick="addItem()">
+                + Add
+            </button>
+
+        </div>
+
+
+        <div id="packingList">
+
+            <label class="check-item">
+
+                <input
+                    type="checkbox"
+                    onchange="completeItem(this)"
+                >
+
+                <span>
+                    Passport
+                </span>
+
+            </label>
+
+
+            <label class="check-item">
+
+                <input
+                    type="checkbox"
+                    onchange="completeItem(this)"
+                >
+
+                <span>
+                    Charger
+                </span>
+
+            </label>
+
+
+            <label class="check-item">
+
+                <input
+                    type="checkbox"
+                    onchange="completeItem(this)"
+                >
+
+                <span>
+                    Clothes
+                </span>
+
+            </label>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TIPS ================= -->
+
+<section>
+
+    <div class="section-title">
+
+        <small>
+            Travel Better
+        </small>
+
+        <h2>
+            Smart Travel Tips
+        </h2>
+
+    </div>
+
+
+    <div class="tips">
+
+
+        <div class="tip">
+
+            <div class="tip-icon">
+                💰
+            </div>
+
+            <h3>
+                Travel on Budget
+            </h3>
+
+            <p>
+                Plan your spending before you leave
+                and keep some emergency money aside.
+            </p>
+
+        </div>
+
+
+        <div class="tip">
+
+            <div class="tip-icon">
+                📱
+            </div>
+
+            <h3>
+                Stay Connected
+            </h3>
+
+            <p>
+                Keep important documents and travel
+                information available offline.
+            </p>
+
+        </div>
+
+
+        <div class="tip">
+
+            <div class="tip-icon">
+                🎒
+            </div>
+
+            <h3>
+                Pack Light
+            </h3>
+
+            <p>
+                Take only what you really need and
+                leave some room for souvenirs.
+            </p>
+
+        </div>
+
+
+        <div class="tip">
+
+            <div class="tip-icon">
+                🌎
+            </div>
+
+            <h3>
+                Explore More
+            </h3>
+
+            <p>
+                Don't just visit the famous places.
+                Discover the local side of every destination.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-logo">
+        Wanderly ✈️
+    </div>
+
+    <p>
+        Plan less. Travel more.
+    </p>
+
+    <p>
+        © 2026 Wanderly Travel Planner
+    </p>
+
+</footer>
+
+
+<!-- ================= TOAST ================= -->
+
+<div
+    id="toast"
+    class="toast">
+</div>
+
+<script>
+
+/* ================= TRIP ================= */
+
+function addTrip(){
+
+    let activity =
+        document.getElementById("activity");
+
+    let text =
+        activity.value.trim();
+
+
+    if(text === ""){
+
+        showToast(
+            "Please enter an activity."
+        );
+
+        return;
+    }
+
+
+    let li =
+        document.createElement("li");
+
+
+    li.innerHTML = `
+
+        <span>
+            📍 ${text}
+        </span>
+
+        <button
+            class="delete-btn"
+            onclick="this.parentElement.remove()">
+            ×
+        </button>
+
+    `;
+
+
+    document
+        .getElementById("tripList")
+        .appendChild(li);
+
+
+    activity.value = "";
+
+    showToast(
+        "Activity added to your trip ✈️"
+    );
+}
+
+
+/* ================= BUDGET ================= */
+
+function showBudget(){
+
+    let money =
+        document.getElementById("money").value;
+
+
+    if(money === "" || money < 0){
+
+        showToast(
+            "Please enter a valid budget."
+        );
+
+        return;
+    }
+
+
+    document.getElementById("total")
+        .innerText =
+        Number(money).toLocaleString("en-IN");
+
+
+    showToast(
+        "Budget updated successfully 💰"
+    );
+}
+
+
+/* ================= PACKING ================= */
+
+function addItem(){
+
+    let input =
+        document.getElementById("item");
+
+    let text =
+        input.value.trim();
+
+
+    if(text === ""){
+
+        showToast(
+            "Please enter an item."
+        );
+
+        return;
+    }
+
+
+    let label =
+        document.createElement("label");
+
+
+    label.className =
+        "check-item";
+
+
+    label.innerHTML = `
+
+        <input
+            type="checkbox"
+            onchange="completeItem(this)"
+        >
+
+        <span>
+            ${text}
+        </span>
+
+    `;
+
+
+    document
+        .getElementById("packingList")
+        .appendChild(label);
+
+
+    input.value = "";
+
+    showToast(
+        "Item added to packing list 🎒"
+    );
+}
+
+
+/* ================= CHECK ITEM ================= */
+
+function completeItem(checkbox){
+
+    let item =
+        checkbox.parentElement;
+
+
+    if(checkbox.checked){
+
+        item.classList.add("done");
+
+    }else{
+
+        item.classList.remove("done");
+
+    }
+}
+
+
+/* ================= SEARCH ================= */
+
+function searchPlaces(){
+
+    let text =
+        document
+        .getElementById("search")
+        .value
+        .toLowerCase();
+
+
+    document
+        .querySelectorAll(".card")
+        .forEach(card => {
+
+            let content =
+                card.innerText.toLowerCase();
+
+
+            card.style.display =
+                content.includes(text)
+                ? ""
+                : "none";
+
+        });
+}
+
+
+/* ================= SAVE ================= */
+
+function savePlace(place){
+
+    showToast(
+        place +
+        " saved to your favorites ❤️"
+    );
+}
+
+
+/* ================= DARK MODE ================= */
+
+function toggleDark(){
+
+    document
+        .body
+        .classList
+        .toggle("dark");
+
+}
+
+
+/* ================= TOAST ================= */
+
+function showToast(message){
+
+    let toast =
+        document.getElementById("toast");
+
+
+    toast.innerText =
+        message;
+
+
+    toast.classList.add("show");
+
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    },3000);
+
+}
+
+</script>
+
+</body>
+</html>

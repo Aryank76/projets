@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brew & Bloom Café</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'DM Sans',sans-serif;
+    background:#f8f3ec;
+    color:#30231d;
+}
+
+/* NAVBAR */
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+    padding:18px 7%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(48,35,29,.92);
+    backdrop-filter:blur(12px);
+    box-shadow:0 5px 25px #0003;
+}
+
+.logo{
+    font-family:'Playfair Display',serif;
+    font-size:28px;
+    font-weight:bold;
+    color:#f1c27d;
+}
+
+.logo span{
+    color:#fff;
+}
+
+nav{
+    display:flex;
+    align-items:center;
+    gap:28px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:500;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#f1c27d;
+}
+
+.cart{
+    background:#d89a52;
+    padding:10px 17px;
+    border-radius:25px;
+    color:white;
+    cursor:pointer;
+}
+
+/* HERO */
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:120px 20px 70px;
+
+    background:
+    linear-gradient(rgba(35,23,18,.62),rgba(35,23,18,.72)),
+    url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1600")
+    center/cover;
+}
+
+.hero-content{
+    max-width:800px;
+    animation:fadeUp 1s ease;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 18px;
+    border:1px solid #f1c27d;
+    color:#f1c27d;
+    border-radius:30px;
+    margin-bottom:20px;
+    font-size:14px;
+}
+
+.hero h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(50px,8vw,90px);
+    color:white;
+    line-height:1.05;
+}
+
+.hero h1 span{
+    color:#f1c27d;
+}
+
+.hero p{
+    color:#eee;
+    font-size:20px;
+    margin:25px auto;
+    max-width:600px;
+}
+
+.btn{
+    display:inline-block;
+    border:0;
+    padding:14px 28px;
+    border-radius:30px;
+    background:#d8944d;
+    color:white;
+    font-weight:bold;
+    text-decoration:none;
+    cursor:pointer;
+    transition:.3s;
+    margin:5px;
+}
+
+.btn:hover{
+    background:#b97234;
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px #0004;
+}
+
+.btn-light{
+    background:white;
+    color:#4a3327;
+}
+
+/* GENERAL */
+section{
+    padding:90px 8%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title small{
+    color:#c27c3e;
+    font-weight:bold;
+    text-transform:uppercase;
+    letter-spacing:2px;
+}
+
+.section-title h2{
+    font-family:'Playfair Display',serif;
+    font-size:45px;
+    color:#38251d;
+    margin-top:8px;
+}
+
+.section-title p{
+    color:#75665e;
+    margin-top:12px;
+}
+
+/* MENU */
+#menu{
+    background:#f8f3ec;
+}
+
+.search{
+    display:block;
+    width:min(400px,90%);
+    margin:0 auto 40px;
+    padding:15px 22px;
+    border:2px solid #eadfd4;
+    border-radius:30px;
+    outline:none;
+    font-size:16px;
+    background:white;
+}
+
+.search:focus{
+    border-color:#d8944d;
+}
+
+.menu{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:28px;
+    max-width:1150px;
+    margin:auto;
+}
+
+.card{
+    background:white;
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:0 8px 30px #4a332714;
+    transition:.35s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 18px 40px #4a332725;
+}
+
+.card-img{
+    height:210px;
+    overflow:hidden;
+}
+
+.card-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.5s;
+}
+
+.card:hover .card-img img{
+    transform:scale(1.08);
+}
+
+.card-content{
+    padding:22px;
+}
+
+.card-content h3{
+    font-family:'Playfair Display',serif;
+    font-size:23px;
+    color:#38251d;
+}
+
+.card-content p{
+    color:#75665e;
+    font-size:14px;
+    margin:10px 0;
+    line-height:1.6;
+}
+
+.rating{
+    color:#d8944d;
+    font-size:14px;
+}
+
+.price{
+    font-size:21px;
+    font-weight:bold;
+    color:#c27c3e;
+    margin:12px 0;
+}
+
+.order-btn{
+    width:100%;
+    border:0;
+    padding:12px;
+    border-radius:12px;
+    background:#38251d;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.order-btn:hover{
+    background:#d8944d;
+}
+
+/* ABOUT */
+#about{
+    background:#38251d;
+    color:white;
+}
+
+.about{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+}
+
+.about-img{
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 15px 40px #0005;
+}
+
+.about-img img{
+    width:100%;
+    display:block;
+}
+
+.about-text small{
+    color:#f1c27d;
+    text-transform:uppercase;
+    letter-spacing:2px;
+}
+
+.about-text h2{
+    font-family:'Playfair Display',serif;
+    font-size:45px;
+    margin:12px 0 20px;
+}
+
+.about-text p{
+    color:#d9cbc3;
+    line-height:1.8;
+    margin-bottom:20px;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.feature{
+    background:#ffffff0d;
+    padding:15px;
+    border-radius:12px;
+}
+
+/* INFO */
+.info{
+    background:#efe5da;
+}
+
+.info-grid{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.info-card{
+    background:white;
+    text-align:center;
+    padding:35px 20px;
+    border-radius:20px;
+    box-shadow:0 5px 20px #4a332714;
+}
+
+.info-card .icon{
+    font-size:35px;
+    margin-bottom:15px;
+}
+
+.info-card h3{
+    margin-bottom:10px;
+}
+
+.info-card p{
+    color:#75665e;
+    line-height:1.7;
+}
+
+/* TESTIMONIAL */
+.testimonials{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    flex-wrap:wrap;
+}
+
+.review{
+    background:white;
+    max-width:330px;
+    padding:28px;
+    border-radius:20px;
+    box-shadow:0 8px 25px #4a332714;
+}
+
+.review-stars{
+    color:#d8944d;
+    margin-bottom:15px;
+}
+
+.review p{
+    color:#665850;
+    line-height:1.7;
+}
+
+.review h4{
+    margin-top:18px;
+}
+
+/* RESERVATION */
+#reserve{
+    background:
+    linear-gradient(#38251de6,#38251de6),
+    url("https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=1400")
+    center/cover;
+    text-align:center;
+    color:white;
+}
+
+.reserve-box{
+    max-width:650px;
+    margin:auto;
+}
+
+.reserve-box h2{
+    font-family:'Playfair Display',serif;
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.reserve-box p{
+    color:#ddd;
+    margin-bottom:25px;
+}
+
+.reserve-form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.reserve-form input,
+.reserve-form select{
+    padding:14px;
+    border:0;
+    border-radius:10px;
+    outline:none;
+}
+
+.reserve-form .full{
+    grid-column:1/-1;
+}
+
+/* FOOTER */
+footer{
+    background:#211511;
+    color:#aaa;
+    padding:40px 8%;
+    text-align:center;
+}
+
+.footer-logo{
+    font-family:'Playfair Display',serif;
+    color:#f1c27d;
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+footer p{
+    margin:8px;
+}
+
+/* TOAST */
+.toast{
+    position:fixed;
+    bottom:30px;
+    right:30px;
+    background:#38251d;
+    color:white;
+    padding:16px 22px;
+    border-radius:12px;
+    box-shadow:0 8px 25px #0004;
+    transform:translateY(100px);
+    opacity:0;
+    transition:.4s;
+    z-index:2000;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+/* ANIMATION */
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+    header{
+        padding:15px 5%;
+    }
+
+    nav{
+        gap:12px;
+    }
+
+    nav a{
+        display:none;
+    }
+
+    .hero{
+        min-height:90vh;
+    }
+
+    section{
+        padding:65px 5%;
+    }
+
+    .section-title h2,
+    .about-text h2,
+    .reserve-box h2{
+        font-size:35px;
+    }
+
+    .about{
+        grid-template-columns:1fr;
+        gap:35px;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .reserve-form{
+        grid-template-columns:1fr;
+    }
+
+    .reserve-form .full{
+        grid-column:auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Brew <span>&</span> Bloom ☕</div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#about">About</a>
+        <a href="#reserve">Reserve</a>
+
+        <div class="cart" onclick="showCart()">
+            🛒 Cart (<span id="cartCount">0</span>)
+        </div>
+    </nav>
+</header>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+    <div class="hero-content">
+
+        <div class="badge">☕ Freshly Brewed Every Day</div>
+
+        <h1>
+            Good Coffee.<br>
+            <span>Good Mood.</span>
+        </h1>
+
+        <p>
+            A cozy corner where handcrafted coffee,
+            delicious treats and beautiful moments come together.
+        </p>
+
+        <a href="#menu" class="btn">Explore Our Menu</a>
+        <a href="#reserve" class="btn btn-light">Book a Table</a>
+
+    </div>
+</section>
+
+
+<!-- MENU -->
+<section id="menu">
+
+    <div class="section-title">
+        <small>Our Favorites</small>
+        <h2>Made With Love</h2>
+        <p>Fresh ingredients. Quality coffee. Happy moments.</p>
+    </div>
+
+    <input
+        class="search"
+        id="search"
+        placeholder="🔍 Search coffee, cake..."
+        onkeyup="searchMenu()"
+    >
+
+    <div class="menu">
+
+        <div class="card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=700">
+            </div>
+
+            <div class="card-content">
+                <div class="rating">★★★★★</div>
+                <h3>Classic Cappuccino</h3>
+                <p>Rich espresso topped with silky creamy foam.</p>
+                <div class="price">₹160</div>
+                <button class="order-btn"
+                    onclick="addToCart('Classic Cappuccino',160)">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1561882468-9110e03e0f78?w=700">
+            </div>
+
+            <div class="card-content">
+                <div class="rating">★★★★★</div>
+                <h3>Caramel Latte</h3>
+                <p>Smooth espresso with steamed milk and caramel.</p>
+                <div class="price">₹190</div>
+                <button class="order-btn"
+                    onclick="addToCart('Caramel Latte',190)">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-img">
+                <img src="https://t4.ftcdn.net/jpg/08/22/52/43/240_F_822524311_IZFbIinSewQf3V4BzgfaAgY3atagdSRS.jpg">
+            </div>
+
+            <div class="card-content">
+                <div class="rating">★★★★★</div>
+                <h3>Chocolate Mocha</h3>
+                <p>Chocolate, espresso and steamed milk in one cup.</p>
+                <div class="price">₹200</div>
+                <button class="order-btn"
+                    onclick="addToCart('Chocolate Mocha',200)">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=700">
+            </div>
+
+            <div class="card-content">
+                <div class="rating">★★★★☆</div>
+                <h3>Cold Coffee</h3>
+                <p>Chilled, creamy and refreshing iced coffee.</p>
+                <div class="price">₹150</div>
+                <button class="order-btn"
+                    onclick="addToCart('Cold Coffee',150)">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=700">
+            </div>
+
+            <div class="card-content">
+                <div class="rating">★★★★★</div>
+                <h3>Chocolate Cake</h3>
+                <p>Soft chocolate cake covered with rich frosting.</p>
+                <div class="price">₹180</div>
+                <button class="order-btn"
+                    onclick="addToCart('Chocolate Cake',180)">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1607958996333-41aef7caefaa?w=700">
+            </div>
+
+            <div class="card-content">
+                <div class="rating">★★★★★</div>
+                <h3>Blueberry Muffin</h3>
+                <p>Freshly baked muffin filled with juicy blueberries.</p>
+                <div class="price">₹120</div>
+                <button class="order-btn"
+                    onclick="addToCart('Blueberry Muffin',120)">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ABOUT -->
+<section id="about">
+
+    <div class="about">
+
+        <div class="about-img">
+            <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=900">
+        </div>
+
+        <div class="about-text">
+
+            <small>Our Story</small>
+
+            <h2>A Little Café With A Big Heart</h2>
+
+            <p>
+                Brew & Bloom started with a simple idea:
+                create a warm place where people could slow down,
+                enjoy great coffee and spend time with the people
+                they love.
+            </p>
+
+            <p>
+                Every cup is prepared with carefully selected beans
+                and every dessert is made to bring a little happiness
+                to your day.
+            </p>
+
+            <div class="features">
+                <div class="feature">☕ Freshly Roasted Coffee</div>
+                <div class="feature">🥐 Freshly Baked Treats</div>
+                <div class="feature">🌿 Cozy Atmosphere</div>
+                <div class="feature">❤️ Made With Love</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- INFO -->
+<section class="info">
+
+    <div class="section-title">
+        <small>Visit Us</small>
+        <h2>Come Say Hello</h2>
+    </div>
+
+    <div class="info-grid">
+
+        <div class="info-card">
+            <div class="icon">📍</div>
+            <h3>Roorkee</h3>
+            <p>
+                24 Coffee Street,<br>
+                Your City, India
+            </p>
+        </div>
+
+        <div class="info-card">
+            <div class="icon">🕐</div>
+            <h3>Opening Hours</h3>
+            <p>
+                Mon - Fri: 8 AM - 9 PM<br>
+                Sat - Sun: 9 AM - 10 PM
+            </p>
+        </div>
+
+        <div class="info-card">
+            <div class="icon">📞</div>
+            <h3>Contact Us</h3>
+            <p>
+                +91 98765 43210<br>
+                hello@brewandbloom.com
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- REVIEWS -->
+<section>
+
+    <div class="section-title">
+        <small>Customer Love</small>
+        <h2>What People Say</h2>
+    </div>
+
+    <div class="testimonials">
+
+        <div class="review">
+            <div class="review-stars">★★★★★</div>
+            <p>
+                "The cappuccino is amazing and the atmosphere
+                is perfect for reading or working."
+            </p>
+            <h4>— Ananya</h4>
+        </div>
+
+        <div class="review">
+            <div class="review-stars">★★★★★</div>
+            <p>
+                "Beautiful café, friendly staff and probably
+                the best caramel latte I've had!"
+            </p>
+            <h4>— Rahul</h4>
+        </div>
+
+        <div class="review">
+            <div class="review-stars">★★★★★</div>
+            <p>
+                "The chocolate cake is absolutely delicious.
+                Definitely coming back again."
+            </p>
+            <h4>— Priya</h4>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- RESERVATION -->
+<section id="reserve">
+
+    <div class="reserve-box">
+
+        <h2>Reserve Your Table</h2>
+
+        <p>
+            Planning a coffee date, birthday or relaxing evening?
+            Reserve your favorite table with us.
+        </p>
+
+        <div class="reserve-form">
+
+            <input type="text" id="guestName" placeholder="Your Name">
+
+            <input type="tel" id="phone" placeholder="Phone Number">
+
+            <input type="date" id="date">
+
+            <select id="people">
+                <option>1 Person</option>
+                <option>2 People</option>
+                <option>3 People</option>
+                <option>4 People</option>
+                <option>5+ People</option>
+            </select>
+
+            <button class="btn full" onclick="reserveTable()">
+                Reserve Table
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <div class="footer-logo">Brew & Bloom ☕</div>
+
+    <p>Good Coffee. Good Mood.</p>
+
+    <p>
+        © 2026 Brew & Bloom Café · Made with ❤️ and coffee
+    </p>
+
+</footer>
+
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+let cartCount = 0;
+let cart = [];
+
+
+/* ADD TO CART */
+function addToCart(name, price){
+
+    cart.push({
+        name:name,
+        price:price
+    });
+
+    cartCount++;
+
+    document.getElementById("cartCount").innerText = cartCount;
+
+    showToast(name + " added to your cart ☕");
+}
+
+
+/* CART */
+function showCart(){
+
+    if(cart.length === 0){
+        showToast("Your cart is empty.");
+        return;
+    }
+
+    let total = 0;
+
+    cart.forEach(item => {
+        total += item.price;
+    });
+
+    alert(
+        "🛒 Your Order\n\n" +
+        cart.map(item => "• " + item.name + " - ₹" + item.price).join("\n") +
+        "\n\nTotal: ₹" + total
+    );
+}
+
+
+/* SEARCH */
+function searchMenu(){
+
+    let text =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
+
+    document.querySelectorAll(".card").forEach(card => {
+
+        let content =
+            card.innerText.toLowerCase();
+
+        card.style.display =
+            content.includes(text) ? "" : "none";
+
+    });
+}
+
+
+/* RESERVATION */
+function reserveTable(){
+
+    let name =
+        document.getElementById("guestName").value;
+
+    let date =
+        document.getElementById("date").value;
+
+    if(name === "" || date === ""){
+
+        showToast("Please enter your name and date.");
+
+        return;
+    }
+
+    showToast(
+        "Table reserved successfully for " + name + " 🎉"
+    );
+
+}
+
+
+/* TOAST */
+function showToast(message){
+
+    let toast =
+        document.getElementById("toast");
+
+    toast.innerText = message;
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    },3000);
+}
+
+</script>
+
+</body>
+</html>
